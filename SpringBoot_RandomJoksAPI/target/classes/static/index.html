@@ -2,6 +2,104 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>😂 Random Joke Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS Animation Library -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .joke-container {
+      background-color: white;
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 600px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .joke-btn {
+      font-size: 18px;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 10px;
+      background-color: #0d6efd;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    .joke-btn:hover {
+      background-color: #0a58ca;
+    }
+
+    #joke-box {
+      margin-top: 25px;
+      font-size: 20px;
+      color: #333;
+      min-height: 80px;
+      transition: all 0.3s ease;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #343a40;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="joke-container text-center" data-aos="fade-up">
+    <h1>😂 Random Joke Generator</h1>
+    <button class="joke-btn" onclick="getJoke()">Get Joke</button>
+    <div id="joke-box" data-aos="fade-in" data-aos-duration="600">
+      Click the button to get a joke!
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- AOS JS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    function getJoke() {
+      fetch("/api/joke")
+        .then(response => response.text())
+        .then(joke => {
+          const jokeBox = document.getElementById("joke-box");
+          jokeBox.innerText = joke;
+          jokeBox.setAttribute("data-aos", "fade-in");
+          jokeBox.setAttribute("data-aos-duration", "400");
+          AOS.refresh(); // re-trigger animation
+        })
+        .catch(err => {
+          document.getElementById("joke-box").innerText = "Failed to fetch joke.";
+          console.error(err);
+        });
+    }
+  </script>
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
   <title>Random Joke Generator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
@@ -55,4 +153,11 @@
     }
   </script>
 </body>
-</html>
+</html>-->
+
+
+
+
+
+
+
